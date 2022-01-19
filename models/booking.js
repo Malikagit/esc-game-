@@ -1,6 +1,6 @@
 'use strict';
 const Sequelize = require('sequelize');
-const {  Model } = Sequelize;
+const { Model } = Sequelize;
 
 module.exports = (sequelize, DataTypes) => {
   class Booking extends Model {
@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.Player, { foreignKey: { name: 'bookingId'}} )
+      this.hasMany(models.Player, { foreignKey: { name: 'bookingId' } })
     }
   };
   Booking.init({
@@ -18,11 +18,11 @@ module.exports = (sequelize, DataTypes) => {
      * We define a column id because we want to add a bookingId to players.
      * By default Sequelize won't add an id attribute for junction tables
      */
-    id: {       
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: Sequelize.INTEGER
     }
   }, {
     sequelize,

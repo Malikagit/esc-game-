@@ -17,18 +17,20 @@
                 </tr>
             </thead>
             {{#each slots}}
-                <tr>
-                    <td>{{getDate during}}</td>
-                    <td>{{slotToStr during}}</td>
-                    <td>
-                    {{#if ../user}}
-                        <a href="/slot/{{id}}/book" class="btn btn-primary">Réserver</a>
-                    {{else}}
-                        <a class="btn btn-primary disabled">Réserver</a><br>
-                        <small><em>Connectez-vous pour réserver</em></small>
-                    {{/if}}
-                    </td>
-                </tr>
+                {{#if (checkExpiredSlot  during )}}
+                    <tr>
+                        <td>{{getDate during}}</td>
+                        <td>{{slotToStr during}}</td>
+                        <td>
+                        {{#if ../user}}
+                            <a href="/slot/{{id}}/book" class="btn btn-primary">Réserver</a>
+                        {{else}}
+                            <a class="btn btn-primary disabled">Réserver</a><br>
+                            <small><em>Connectez-vous pour réserver</em></small>
+                        {{/if}}
+                        </td>
+                    </tr>
+                {{/if}}
             {{/each}}
         </table>
     {{else}}

@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "matrice-ecole",
+    "password": "escpaGame",
+    "database": "database_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "matrice-ecole",
+    "password": "escapeGame",
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "matrice-ecole",
+    "password": "escapeGame",
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
