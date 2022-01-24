@@ -7,19 +7,19 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
 
     static associate(models) {
-      this.belongsToMany(models.Slot, { through: models.Booking, foreignKey: { name: 'userId'} })
+      this.belongsToMany(models.Slot, { through: models.Booking, foreignKey: { name: 'userId' } })
     }
 
     static async authenticate(email, rawPassword, res) {
       const password = getHashedPassword(rawPassword);
-      const result = await User.findOne({ where: { email , password }, attributes: ['id'] });
+      const result = await User.findOne({ where: { email, password }, attributes: ['id'] });
 
       if (result) {
         setAuthToken(result.id, res);
         return true;
       }
       else {
-          throw 'Invalid username or password';
+        throw 'Invalid username or password';
       }
     }
 
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         const hashedPassword = getHashedPassword(password);
 
         return User.create({ email, firstName, lastName, password: hashedPassword })
-      } 
+      }
       else {
         throw 'Passwords do not match.';
       }
@@ -66,10 +66,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       validate: { isEmail: true }
-    },    
+    },
     isAdmin: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false 
+      defaultValue: false
     },
   }, {
     sequelize,

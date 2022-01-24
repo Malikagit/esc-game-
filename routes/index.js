@@ -29,14 +29,20 @@ router.get('/room/:id', (req, res) => {
         .catch(err => { res.status(404).send(err) })
 });
 
-router.get('/slot/:id/book', requireAuth, (req, res) => {
+router.get('/slot/:id/book', requireAuth, async (req, res) => {
     const { id } = req.params;
+    //exemple pr affiche l'identifiant de l'utilisateur connécté en utlisant lemiddleware requireAuth
+    const userLogged = req.user;
+    const userLoggedAsPlayer = await User.findOne({
+        where: { id: userLogged }
+    })
+    console.log(userLoggedAsPlayer.lastName);
     Slot.findOne({
         where: { id },
         include: 'room',
         raw: true, nest: true
     })
-        .then(slot => { res.render('book', { slot }) })
+        .then(slot => { res.render('book', { slot, userLoggedAsPlayer }) })
         .catch(err => { res.status(404).send(err) })
 });
 

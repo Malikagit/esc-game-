@@ -1,19 +1,42 @@
 <div class="offset-2 col-8 my-5">
-    <p>Vous allez réserver la salle {{ slot.room.name }} le {{ getDate slot.during }}
-    sur le créneau {{ slotToStr slot.during }}</p>
-    <p>Cette salle peut accueillir de {{ getMinCapacity slot.room.capacity }} à {{ getMaxCapacity slot.room.capacity }} joueurs.</p>
+  <p>Vous allez réserver la salle
+    {{slot.room.name}}
+    le
+    {{getDate slot.during}}
+    sur le créneau
+    {{slotToStr slot.during}}</p>
+  <p>Cette salle peut accueillir de
+    {{getMinCapacity slot.room.capacity}}
+    à
+    {{getMaxCapacity slot.room.capacity}}
+    joueurs.</p>
+  <!-- chexbox add logged user as player-->
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      value=""
+      id="checkBoxloggedUser"
+    />
+    <label class="form-check-label" for="checkBoxloggedUser">
+      add logged user as player
+    </label>
+    <input type="text" value={{userLoggedAsPlayer.lastName}} />
+  </div>
 
-    <select class= "form-control mt-5 mr-3" id="nbPlayers" name="nbPlayers">
-        <option disabled selected value> -- sélectionnez le nombre de joueurs -- </option>
+  <select class="form-control mt-5 mr-3" id="nbPlayers" name="nbPlayers">
+    <option disabled selected value>
+      -- sélectionnez le nombre de joueurs --
+    </option>
     {{#capacityLoop slot.room.capacity}}
-        <option value="{{ this }}">{{ this }} joueurs</option>
+      <option value="{{this}}">{{this}} joueurs</option>
     {{/capacityLoop}}
-    </select>
+  </select>
 
-    <form method="POST">
-        <div id="formPlayers">
-        </div>
-        <button type="submit" class="mt-5 btn btn-primary">Confirmer</button>
-    </form>
+  <form method="POST">
+    <div id="formPlayers">
+    </div>
+    <button type="submit" class="mt-5 btn btn-primary">Confirmer</button>
+  </form>
 </div>
 <script src="/js/book.js"></script>

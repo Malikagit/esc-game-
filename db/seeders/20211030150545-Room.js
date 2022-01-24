@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
-      'rooms', 
+      'rooms',
       [
         {
           name: 'Ghost Buster',
@@ -11,9 +11,10 @@ module.exports = {
           price: 99,
           ageLimit: 13,
           capacity: "(4, 7)",
-//          capacity: [{ value: "4", inclusive: true }, { value: "7", inclusive: true }],
+          //          capacity: [{ value: "4", inclusive: true }, { value: "7", inclusive: true }],
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
+          picture_path: 'ghostbuster.jpg'
         },
         {
           name: 'Inspecteur Gadget',
@@ -22,11 +23,12 @@ module.exports = {
           ageLimit: 8,
           capacity: "(3, 5)",
 
-//          capacity: [{ value: 3, inclusive: true }, { value: 5, inclusive: true }],
+          //          capacity: [{ value: 3, inclusive: true }, { value: 5, inclusive: true }],
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
+          picture_path: 'inspecteurGadget.jpeg'
         },
-      ], 
+      ],
       {},
     );
   },

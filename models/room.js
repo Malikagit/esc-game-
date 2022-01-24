@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
     capacity: {
       type: Sequelize.RANGE(Sequelize.INTEGER),
       allowNull: false
+    },
+    picture_path: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     sequelize,

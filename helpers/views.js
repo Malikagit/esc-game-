@@ -15,7 +15,7 @@ module.exports = {
             return content;
         },
         checkExpiredSlot: (data) => {
-            //renvoi null si date ext espiree et renvoi true sinon
+            //renvoi null si date ext espiree sinon renvoi true 
             if ((data[0].value.getTime()) <= Date.now())
                 return null
             else { return true }
