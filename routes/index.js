@@ -32,11 +32,13 @@ router.get('/room/:id', (req, res) => {
 router.get('/slot/:id/book', requireAuth, async (req, res) => {
     const { id } = req.params;
     //exemple pr affiche l'identifiant de l'utilisateur connécté en utlisant lemiddleware requireAuth
-    const userLogged = req.user;
+
     const userLoggedAsPlayer = await User.findOne({
-        where: { id: userLogged }
+        where: { id: req.user },
+        raw: true
     })
-    console.log(userLoggedAsPlayer.lastName);
+    console.log(userLoggedAsPlayer);
+
     Slot.findOne({
         where: { id },
         include: 'room',
@@ -68,6 +70,13 @@ router.get('/bookings', requireAuth, async (req, res) => {
 
     res.render('bookings', { slots })
 });
+router.delete('/bookings/:id'), requireAuth, async (req, res) => {
+    const bckdeleted = await Booking.findOne({
+        where: { id: req.id }
+    })
+    const deletedbooking = await bckdeleted.destroy();
+    console.log(deletedbooking);
+}
 
 // router.post('/schedule', requireAuth, (req, res) => {
 //     Schedule.create(req.user, req.body)
