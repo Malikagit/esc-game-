@@ -28,7 +28,9 @@ router.get('/room/:id', (req, res) => {
         })
         .catch(err => { res.status(404).send(err) })
 });
-
+router.put('/room/:id', (req, res) => {
+    const { id } = req.params;
+})
 router.get('/slot/:id/book', requireAuth, async (req, res) => {
     const { id } = req.params;
     //exemple pr affiche l'identifiant de l'utilisateur connécté en utlisant lemiddleware requireAuth
