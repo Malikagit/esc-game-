@@ -72,13 +72,7 @@ router.get('/bookings', requireAuth, async (req, res) => {
 
     res.render('bookings', { slots })
 });
-router.delete('/bookings/:id'), requireAuth, async (req, res) => {
-    const bckdeleted = await Booking.findOne({
-        where: { id: req.id }
-    })
-    const deletedbooking = await bckdeleted.destroy();
-    console.log(deletedbooking);
-}
+
 
 // router.post('/schedule', requireAuth, (req, res) => {
 //     Schedule.create(req.user, req.body)
