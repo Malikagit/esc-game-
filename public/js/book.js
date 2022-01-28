@@ -4,18 +4,6 @@ function clearPlayers() {
 
     return formPlayers;
 }
-//Annuler reservation
-
-async function deleteReservation() {
-    // var destroyreserv = document.getElementById('annulerReservation');
-    fetch('/bookings/:id', {
-        method: "DELETE"
-    })
-        .then(response => response.json());
-}
-
-
-//mettre le botton annuler enable
 
 //function get informations for the logged user
 function checkedUserLogged() {
@@ -25,8 +13,10 @@ function checkedUserLogged() {
         alert("hello")
     }
     else {
-        var userlogged = document.getElementById('lastNameusers');
-        userlogged.value = userlogged.dataset.lastname
+        var userloggedlastname = document.getElementById('lastNameuser');
+        userloggedlastname.value = userloggedlastname.dataset.lastname;
+        var userloggedfirstname = document.getElementById('firstNameuser');
+        userloggedfirstname.value = userloggedfirstname.dataset.firstname;
     }
 }
 function createNthPlayer(n) {
@@ -35,11 +25,11 @@ function createNthPlayer(n) {
         <div class="form-row mb-5"> 
             <div class="col-md-4">
                 <label>Prénom</label>
-                <input name="[players][${n}][firstName]" type="text" class="form-control">
+                <input name="[players][${n}][firstName]" type="text"  class="form-control">
             </div>
             <div class="col-md-4">
                 <label>Nom</label>
-                <input name="[players][${n}][lastName]" type="text" class="form-control">
+                <input name="[players][${n}][lastName]"  type="text" class="form-control">
             </div>
             <div class="offset-1 col-md-3">
                 <label>Date de naissance</label>
@@ -63,4 +53,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     })
 
+});
+// Data Picker Initialization
+$('.datepicker').datepicker({
+    inline: true
 });

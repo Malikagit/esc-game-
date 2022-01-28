@@ -11,6 +11,15 @@
     {{getMaxCapacity slot.room.capacity}}
     joueurs.</p>
   <!-- chexbox add logged user as player-->
+
+  <select class="form-control mt-5 mr-3" id="nbPlayers" name="nbPlayers">
+    <option disabled selected value>
+      -- sélectionnez le nombre de joueurs --
+    </option>
+    {{#capacityLoop slot.room.capacity}}
+      <option value="{{this}}">{{this}} joueurs</option>
+    {{/capacityLoop}}
+  </select>
   <div class="form-check">
     <input
       class="form-check-input"
@@ -21,26 +30,37 @@
     <label class="form-check-label" for="checkBoxloggedUser">
       add logged user as player
     </label>
+  </div>
+  <div>
     <input
       type="text"
-      id="lastNameusers"
+      id="lastNameuser"
       data-lastname={{userLoggedAsPlayer.lastName}}
     />
+    <input
+      type="text"
+      id="firstNameuser"
+      data-firstname={{userLoggedAsPlayer.firstName}}
+    />
+    <div
+      id="date-picker-example"
+      class="md-form md-outline input-with-post-icon datepicker"
+      inline="true"
+    >
+      <input
+        placeholder="Select date"
+        type="text"
+        id="brthDayuser"
+        class="form-control"
+      />
+
+      <i class="fas fa-calendar input-prefix" tabindex="0"></i>
+    </div>
   </div>
-
-  <select class="form-control mt-5 mr-3" id="nbPlayers" name="nbPlayers">
-    <option disabled selected value>
-      -- sélectionnez le nombre de joueurs --
-    </option>
-    {{#capacityLoop slot.room.capacity}}
-      <option value="{{this}}">{{this}} joueurs</option>
-    {{/capacityLoop}}
-  </select>
-
   <form method="POST">
     <div id="formPlayers">
     </div>
-    <button type="submit" class="mt-5 btn btn-primary">Confirmer</button>
+    <a type="submit" class="mt-5 btn btn-primary" href="/players/book">Confirmer</button>
   </form>
 </div>
 <script src="/js/book.js"></script>

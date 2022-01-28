@@ -10,15 +10,17 @@ router.get('/login', requireAnon, (req, res) => {
 
 router.post('/login', requireAnon, (req, res) => {
     const { email, password } = req.body;
+    //const isAdmini = User.findOne({ where: { id: req.User } });
 
     User.authenticate(email, password, res)
         .then(_ => { res.redirect('/') })
-        .catch(msg => { 
+        .catch(msg => {
             res.render('login', {
                 messageClass: 'alert-danger',
-                message: msg 
-            }) 
+                message: msg
+            })
         });
+
 });
 
 router.get('/logout', requireAuth, (req, res) => {
@@ -37,11 +39,11 @@ router.post('/signup', (req, res) => {
                 messageClass: 'alert-success',
                 message: 'Registration Complete. Please login to continue.'
             })
-        }).catch(msg => { 
+        }).catch(msg => {
             res.render('signup', {
                 messageClass: 'alert-danger',
                 message: msg
-            }) 
+            })
         })
 });
 

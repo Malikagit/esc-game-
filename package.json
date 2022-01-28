@@ -17,11 +17,14 @@
     "express-handlebars": "^4.0.3",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.8.0",
-    "sequelize-cli": "^6.2.0",
-    "sqlite3": "^5.0.2"
+    "sequelize": "^6.14.1",
+    "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
+    "jasmine-browser-runner": "^1.0.0",
+    "jasmine-core": "^4.0.0",
     "nodemon": "^2.0.14"
   }
+
+  
 }

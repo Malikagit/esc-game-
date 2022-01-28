@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const fs = require('fs');
+const { idle_in_transaction_session_timeout } = require('pg/lib/defaults');
 
 const TOKENSFILE = ".cookies";
 const authTokens = {};
@@ -17,14 +18,17 @@ const authTokens = {};
             const lines = res.split("\n").filter(line => { if (line != '') return line }); // REPASSER SUR CA
             for (let line of lines) {
                 const tokenString = line.split(":");
-                authTokens[tokenString[0]] = tokenString[1];
+                authTokens[tokenString[0]] = {
+                    userId: tokenString[1],
+                    isAdmin: tokenString[2],
+                }
             }
         })
     })
 })();
 
-const writeTokenToDisk = (token, user_id) => {
-    const tokenString = token + ":" + user_id.toString() + "\n";
+const writeTokenToDisk = (token, user_id, isAdmin) => {
+    const tokenString = token + ":" + user_id.toString() + ":" + isAdmin.toString() + "\n";
 
     fs.appendFile(TOKENSFILE, tokenString, err => {
         if (err) {
@@ -55,11 +59,14 @@ const generateAuthToken = () => {
 
 module.exports = {
 
-    setAuthToken: (userId, res) => {
-        const authToken = generateAuthToken() + userId;
+    setAuthToken: (userId, isAdmin, res) => {
+        const authToken = generateAuthToken();
 
-        writeTokenToDisk(authToken, userId);
-        authTokens[authToken] = userId;
+        writeTokenToDisk(authToken, userId, isAdmin);
+        authTokens[authToken] = {
+            userId,
+            isAdmin
+        };
         res.cookie('AuthToken', authToken);
     },
 
@@ -73,9 +80,11 @@ module.exports = {
 
     getSessionUser: (req, res, next) => {
         const authToken = req.cookies['AuthToken'];
-
-        req.user = authTokens[authToken];
+        req.user = authTokens[authToken] ? authTokens[authToken]["userId"] : false;
+        req.isAdmin = authTokens[authToken] ? authTokens[authToken]["isAdmin"] : false;
         res.locals.user = req.user;     // to retrieve the user in the template
+        res.locals.isAdmin = req.isAdmin;
+
         next();
     },
 

@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
 
     static async authenticate(email, rawPassword, res) {
       const password = getHashedPassword(rawPassword);
-      const result = await User.findOne({ where: { email, password }, attributes: ['id'] });
+      const result = await User.findOne({ where: { email, password }, attributes: ['id', 'isAdmin'] });
 
       if (result) {
-        setAuthToken(result.id, res);
+        setAuthToken(result.id, result.isAdmin, res);
         return true;
       }
       else {
@@ -35,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
         throw 'Passwords do not match.';
       }
     }
-
     async bookSlot(slot, players) {
       const booking = await sequelize.models.Booking.create({ slotId: slot.id, userId: this.id })
 
